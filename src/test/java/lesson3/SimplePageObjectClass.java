@@ -1,6 +1,6 @@
 package lesson3;
 
-import PageObjects.HomePage;
+import PageObjects.lesson3.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
