@@ -3,7 +3,7 @@ package enums.lesson3;
 public enum Users {
 
 
-    PITER_CHAILOVSKII("PITER CHAILOVSKII","epam", "1234");
+    PITER_CHAILOVSKII("PITER CHAILOVSKII", "epam", "1234");
 
     public String name;
     public String login;

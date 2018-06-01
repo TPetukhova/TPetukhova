@@ -8,18 +8,22 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class Exercise1 {
+public class HomePageImages {
 
-    @DataProvider(name = "textUnderPicture", parallel = true)
+    @DataProvider(parallel = true)
     public Object[][] userData() {
-        return new Object[][] {{1, "To include good practices\n" +
-                "and ideas from successful\n" + "EPAM project"}, {2, "To be flexible and\n" +
-                "customizable"}, {3, "To be multiplatform"}, {4, "Already have good base\n" +
-                "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…"}};
+        return new Object[][]{
+                {1, "To include good practices\n" +
+                        "and ideas from successful\n" + "EPAM project"},
+                {2, "To be flexible and\n" +
+                        "customizable"},
+                {3, "To be multiplatform"},
+                {4, "Already have good base\n" +
+                        "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…"}};
     }
 
     // 1 - Create test with Data Provider
-    @Test(dataProvider = "textUnderPicture")
+    @Test(dataProvider = "userData")
     public void checkPicturesAndTextIndexPage(int index, String expectedText) {
         // 2 - Open site page in the browser
         WebDriver driver = new ChromeDriver();

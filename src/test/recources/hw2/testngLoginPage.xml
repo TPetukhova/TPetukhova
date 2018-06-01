@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="LoginSuite" verbose="1" >
+<suite name="LoginSuite" verbose="1">
     <test name="LoginTest">
         <classes>
-            <class name="hw2.ex3.Exercise3"/>
+            <class name="hw2.ex3.LoginPage"/>
         </classes>
     </test>
 </suite>

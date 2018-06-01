@@ -54,7 +54,7 @@ public class HomePage {
     }
 
     public void checkImagesDisplayed() {
-        assertEquals(images.stream().filter(i -> i.isDisplayed()).count(),4);
+        assertEquals(images.stream().filter(i -> i.isDisplayed()).count(), 4);
     }
 
     public void checkTextItems(List<String> items) {

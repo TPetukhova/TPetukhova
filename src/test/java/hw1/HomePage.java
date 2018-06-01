@@ -13,11 +13,10 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class Exercise1 {
+public class HomePage {
 
-    //1 - Create a new test
     @Test
-    public void JDIWebPageTest() {
+    public void homePageInterfaceTest() {
 
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -26,7 +25,7 @@ public class Exercise1 {
         driver.navigate().to("https://epam.github.io/JDI");
 
         // 3 - Assert Browser title
-        assertEquals(driver.getTitle(),"Home Page");
+        assertEquals(driver.getTitle(), "Home Page");
 
         // 4 - Perform Login
         driver.findElement(By.cssSelector(".profile-photo")).click();
@@ -42,20 +41,20 @@ public class Exercise1 {
 
         // 7 - Assert that there are 4 items on the header section are displayed and they have proper text
         List<WebElement> menuItems = driver.findElements(By.cssSelector(".uui-navigation.nav > li > a"));
-        assertEquals(menuItems.stream().map(item -> item.getText()).collect(Collectors.toList()),
-                Arrays.asList("HOME", "CONTACT FORM", "SERVICE","METALS & COLORS"));
+        assertEquals(menuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
+                Arrays.asList("HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS"));
 
         // 8 - Assert there are 4 images on the Index Page and they are displayed
         List<WebElement> images = driver.findElements(By.cssSelector(".benefit .icons-benefit"));
-        assertEquals(images.stream().filter(i -> i.isDisplayed()).count(),4);
+        assertEquals(images.stream().filter(WebElement::isDisplayed).count(), 4);
 
         // 9 - Assert that there are 4 texts on the Index Page under icons and they have proper text
         List<WebElement> textItems = driver.findElements(By.cssSelector(".benefit .benefit-txt"));
-        assertEquals(textItems.stream().map(item -> item.getText()).collect(Collectors.toList()),
+        assertEquals(textItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Arrays.asList("To include good practices\n" + "and ideas from successful\n" +
-                "EPAM project", "To be flexible and\n" + "customizable","To be multiplatform",
+                                "EPAM project", "To be flexible and\n" + "customizable", "To be multiplatform",
                         "Already have good base\n" + "(about 20 internal and\n" +
-                                "some external projects),\n" + "wish to get more…") );
+                                "some external projects),\n" + "wish to get more…"));
 
         // 10 - Assert the text of the main header
         assertEquals(driver.findElement(By.name("main-title")).getText(), "EPAM FRAMEWORK WISHES…");

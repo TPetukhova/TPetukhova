@@ -1,9 +1,11 @@
 package PageObjects.hw3;
 
+import enums.hw3.Users;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,17 +13,17 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class HomePage {
-    
-    private String url = "https://epam.github.io/JDI";
-    private String title = "Home Page";
+
+    private final String url = "https://epam.github.io/JDI";
+    private final String title = "Home Page";
 
     @FindBy(css = ".profile-photo")
     private WebElement userIcon;
 
-    @FindBy(id = "Name")
+    @FindBy(css = "#Name")
     private WebElement loginInput;
 
-    @FindBy(id = "Password")
+    @FindBy(css = "#Password")
     private WebElement passwordInput;
 
     @FindBy(css = ".fa-sign-in")
@@ -33,31 +35,31 @@ public class HomePage {
     @FindBy(css = ".uui-navigation.nav > li > a")
     private List<WebElement> menuItems;
 
-    @FindBy(css =".icons-benefit")
+    @FindBy(css = ".icons-benefit")
     private List<WebElement> images;
 
     @FindBy(css = ".benefit-txt")
     private List<WebElement> textItems;
 
-    @FindBy(name = "main-title")
+    @FindBy(css = "[name='main-title']")
     private WebElement shortHeader;
 
-    @FindBy(name = "jdi-text")
+    @FindBy(css = "[name='jdi-text']")
     private WebElement longHeader;
 
     @FindBy(css = ".main-content a")
     private WebElement subHeader;
 
-    @FindBy(name = "navigation-sidebar")
+    @FindBy(css = "[name='navigation-sidebar']")
     private WebElement leftSection;
 
-    @FindBy(tagName = "footer")
+    @FindBy(css = "footer")
     private WebElement footer;
 
-    public void login(String login, String password) {
+    public void login(Users user) {
         userIcon.click();
-        loginInput.sendKeys(login);
-        passwordInput.sendKeys(password);
+        loginInput.sendKeys(user.login);
+        passwordInput.sendKeys(user.password);
         loginButton.click();
     }
 
@@ -66,41 +68,48 @@ public class HomePage {
     }
 
     public void checkTitle(WebDriver driver) {
-        assertEquals(driver.getTitle(),title);
+        assertEquals(driver.getTitle(), title);
     }
 
-    public void checkSingedInUsername(String name) {
-        assertEquals(username.getText(),name);
+    public void checkSingedInUsername(Users user) {
+        assertEquals(username.getText(), user.name);
     }
 
-    public void checkMenuItemsText(List<String> items) {
-        assertEquals(menuItems.stream().map(item -> item.getText()).collect(Collectors.toList()),
-                items);
+    public void checkMenuItemsText() {
+        assertEquals(menuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
+                Arrays.asList("HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS"));
     }
 
     public void checkImagesDisplayed() {
-        assertEquals(images.stream().filter(i -> i.isDisplayed()).count(),4);
+        assertEquals(images.stream().filter(i -> i.isDisplayed()).count(), 4);
     }
 
-    public void checkTextItems(List<String> items) {
-        assertEquals(textItems.stream().map(item -> item.getText()).collect(Collectors.toList()),
-                 items);
+    public void checkTextItems() {
+        assertEquals(textItems.stream().map(WebElement::getText).collect(Collectors.toList()),
+                Arrays.asList("To include good practices\n" + "and ideas from successful\n" +
+                                "EPAM project", "To be flexible and\n" + "customizable", "To be multiplatform",
+                        "Already have good base\n" + "(about 20 internal and\n" +
+                                "some external projects),\n" + "wish to get more…"));
     }
 
-    public void checkShortHeaderText(String text) {
-        assertEquals(shortHeader.getText(), text);
+    public void checkShortHeaderText() {
+        assertEquals(shortHeader.getText(), "EPAM FRAMEWORK WISHES…");
     }
 
-    public void checkLongHeaderText(String text) {
-        assertEquals(longHeader.getText(), text);
+    public void checkLongHeaderText() {
+        assertEquals(longHeader.getText(), "LOREM IPSUM DOLOR SIT AMET, " +
+                "CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. " +
+                "UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI " +
+                "UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT " +
+                "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.");
     }
 
-    public void checkSubHeaderText(String text) {
-        assertEquals(subHeader.getText(),text);
+    public void checkSubHeaderText() {
+        assertEquals(subHeader.getText(), "JDI GITHUB");
     }
 
-    public void checkSubHeaderLink(String link) {
-        assertEquals(subHeader.getAttribute("href"), link);
+    public void checkSubHeaderLink() {
+        assertEquals(subHeader.getAttribute("href"), "https://github.com/epam/JDI");
     }
 
     public void checkLeftSectionShown() {

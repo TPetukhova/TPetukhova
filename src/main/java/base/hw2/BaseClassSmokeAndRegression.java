@@ -3,7 +3,7 @@ package base.hw2;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-public class BaseClassExercise2 {
+public class BaseClassSmokeAndRegression {
 
     private long startTime;
 

@@ -1,16 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="SmokeSuite" verbose="1" >
-    <test name="SmokeTest">
+<suite name="RegressionSuite" verbose="1" >
+    <test name="RegressionTest">
         <groups>
             <run>
-                <include name="Smoke"/>
+                <include name="Regression"/>
             </run>
         </groups>
         <classes>
-            <class name="hw2.ex2.Tests1"/>
-            <class name="hw2.ex2.Tests2"/>
-            <class name="hw2.ex2.Tests3"/>
+            <class name="hw2.ex2.Smoke"/>
+            <class name="hw2.ex2.Regression"/>
+            <class name="hw2.ex2.SmokeAndRegression"/>
         </classes>
     </test>
 </suite>

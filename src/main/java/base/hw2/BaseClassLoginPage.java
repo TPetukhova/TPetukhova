@@ -3,7 +3,7 @@ package base.hw2;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-public class BaseClassExercise3 {
+public class BaseClassLoginPage {
 
     @BeforeSuite
     public void beforeSuite() {
