@@ -12,15 +12,11 @@ import static org.testng.Assert.assertTrue;
 
 public class HomePage {
 
-    private WebDriver driver;
+    //private WebDriver driver;
     private String url = "https://epam.github.io/JDI";
     private String title = "Home Page";
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    @FindBy(css = ".profile-photo")
+   @FindBy(css = ".profile-photo")
     private WebElement userIcon;
 
     @FindBy(id = "Name")
@@ -66,11 +62,11 @@ public class HomePage {
         loginButton.click();
     }
 
-    public void open() {
+    public void open(WebDriver driver) {
         driver.navigate().to(url);
     }
 
-    public void checkTitle() {
+    public void checkTitle(WebDriver driver) {
         assertEquals(driver.getTitle(),title);
     }
 

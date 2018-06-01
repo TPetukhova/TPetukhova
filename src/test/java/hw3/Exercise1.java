@@ -33,10 +33,10 @@ public class Exercise1 {
     public void JDIWebPageTest() {
 
         // 2 - Open test site by URL
-        homePage.open();
+        homePage.open(driver);
 
         // 3 - Assert Browser title
-        homePage.checkTitle();
+        homePage.checkTitle(driver);
 
         // 4 - Perform Login
         homePage.login(PITER_CHAILOVSKII.login,PITER_CHAILOVSKII.password);
@@ -45,7 +45,7 @@ public class Exercise1 {
         homePage.checkSingedInUsername(PITER_CHAILOVSKII.name);
 
         // 6 - Assert Browser title
-        homePage.checkTitle();
+        homePage.checkTitle(driver);
 
         // 7 - Assert that there are 4 items on the header section are displayed and they have proper text
         homePage.checkMenuItemsText(Arrays.asList("HOME", "CONTACT FORM", "SERVICE","METALS & COLORS"));

@@ -1,6 +1,6 @@
 package lesson2;
 
-import base.TestBaseClass;
+import base.lesson2.TestBaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

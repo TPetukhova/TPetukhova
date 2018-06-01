@@ -1,4 +1,4 @@
-package base;
+package base.lesson2;
 
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;

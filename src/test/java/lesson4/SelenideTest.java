@@ -1,6 +1,6 @@
 package lesson4;
 
-import base.SelenideTestBase;
+import base.lesson4.SelenideTestBase;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.Assert;
@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static enums.Users.PITER_CHAILOVSKII;
+import static enums.lesson3.Users.PITER_CHAILOVSKII;
 
 public class SelenideTest extends SelenideTestBase {
 

@@ -1,4 +1,4 @@
-package enums;
+package enums.lesson3;
 
 public enum Users {
 
