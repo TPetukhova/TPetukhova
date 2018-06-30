@@ -109,7 +109,7 @@
                     <version>2.21.0</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>
+                            <suiteXmlFile>src/test/resources/hw5/${suiteXmlFile}</suiteXmlFile>
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
