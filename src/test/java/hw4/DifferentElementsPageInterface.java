@@ -38,10 +38,10 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
         homePage.checkShortHeaderText();
 
         // 4 - check Service menu on the header
-        homePage.checkServiceMenuDropdownValuesHeader();
+        homePage.checkServiceMenuItems();
 
         // 5 - check Service menu on the Left Panel
-        homePage.checkServiceMenuDropdownValuesLeftSection();
+        homePage.checkServiceMenuItemsOnLeftSection();
 
         // 6 - open Different Elements page
         differentElementsPage = homePage.openDifferentElementsPage();
@@ -62,8 +62,8 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
         differentElementsPage.checkLeftSection();
 
         // 11 - select Water and Wind checkboxes, check logs
-        differentElementsPage.selectCheckbox(Elements.Water);
-        differentElementsPage.selectCheckbox(Elements.Wind);
+        differentElementsPage.setCheckboxState(Elements.Water, true);
+        differentElementsPage.setCheckboxState(Elements.Wind, true);
         differentElementsPage.checkLogs(Elements.Water, true);
         differentElementsPage.checkLogs(Elements.Wind, true);
 
@@ -76,8 +76,8 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
         differentElementsPage.checkLogs(Colors.Yellow);
 
         // 14 - undo selection of checkboxes, check logs
-        differentElementsPage.unSelectCheckbox(Elements.Water);
-        differentElementsPage.unSelectCheckbox(Elements.Wind);
+        differentElementsPage.setCheckboxState(Elements.Water, false);
+        differentElementsPage.setCheckboxState(Elements.Wind, false);
         differentElementsPage.checkLogs(Elements.Water, false);
         differentElementsPage.checkLogs(Elements.Wind, false);
 

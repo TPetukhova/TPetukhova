@@ -20,36 +20,29 @@ public class HomePage {
     private final String url = "https://epam.github.io/JDI";
     private final String title = "Home Page";
 
-    SelenideElement userIcon = $(".profile-photo");
+    private SelenideElement userIcon = $(".profile-photo");
 
-    SelenideElement loginInput = $("#Name");
+    private SelenideElement loginInput = $("#Name");
 
-    SelenideElement passwordInput = $("#Password");
+    private SelenideElement passwordInput = $("#Password");
 
-    SelenideElement loginButton = $(".fa-sign-in");
+    private SelenideElement loginButton = $(".fa-sign-in");
 
-    SelenideElement username = $(".profile-photo span");
+    private SelenideElement username = $(".profile-photo span");
 
-    List<SelenideElement> images = $$(".icons-benefit");
+    private List<SelenideElement> images = $$(".icons-benefit");
 
-    List<SelenideElement> textItems = $$(".benefit-txt");
+    private List<SelenideElement> textItems = $$(".benefit-txt");
 
-    SelenideElement shortHeader = $("[name='main-title']");
+    private SelenideElement shortHeader = $("[name='main-title']");
 
-    SelenideElement longHeader = $("[name='jdi-text']");
+    private SelenideElement longHeader = $("[name='jdi-text']");
 
-    SelenideElement serviceDropdown = $("li[class='dropdown']");
+    private SelenideElement serviceDropdown = $("li[class='dropdown']");
 
-    SelenideElement serviceDropdownMenu = $("ul[class='dropdown-menu']");
+    private SelenideElement serviceMenu = $("ul[class='dropdown-menu']");
 
-    // need to create a good way for that!!!!
-    List<SelenideElement> serviceMenuDropdownItems = $$("ul[class='dropdown-menu'] li");
-
-    SelenideElement serviceMenuLeftSection = $(".sidebar-menu > li:nth-child(3)");
-
-    List<SelenideElement> serviceMenuDropdownLeftItems = $$(".sidebar-menu > li:nth-child(3) li");
-
-    //SelenideElement differentElementsOption = $(".dropdown-menu li:nth-child(7)");
+    private SelenideElement serviceMenuOnLeftSection = $(".sidebar-menu > li:nth-child(3)");
 
     public void openPage() {
         open(url);
@@ -94,38 +87,34 @@ public class HomePage {
                 "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.");
     }
 
-    public void checkServiceMenuDropdownValuesHeader() {
+    public void checkServiceMenuItems() {
         serviceDropdown.click();
-        assertEquals(serviceMenuDropdownItems.stream().map(WebElement::getText).collect(Collectors.toList()),
+        assertEquals(serviceMenu.$$("li").stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));
 
     }
 
-    public void checkServiceMenuDropdownValuesLeftSection() {
-        serviceMenuLeftSection.click();
-        assertEquals(serviceMenuDropdownLeftItems.stream().map(WebElement::getText).collect(Collectors.toList()),
+    public void checkServiceMenuItemsOnLeftSection() {
+        serviceMenuOnLeftSection.click();
+        assertEquals(serviceMenuOnLeftSection.$$("li").stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(MenuItems::toString).collect(Collectors.toList()));
 
     }
 
-    public void selectServiceDropdownValue(MenuItems item) {
+    public void selectServiceMenuItem(MenuItems item) {
         serviceDropdown.click();
-        serviceDropdownMenu.find(withText(item.toString())).click();
+        serviceMenu.find(withText(item.toString())).click();
 
     }
-
 
     public DifferentElementsPage openDifferentElementsPage() {
-        selectServiceDropdownValue(MenuItems.DIFFERENT_ELEMENTS);
-        DifferentElementsPage differentElementsPage = new DifferentElementsPage();
-        return differentElementsPage;
+        selectServiceMenuItem(MenuItems.DIFFERENT_ELEMENTS);
+        return new DifferentElementsPage();
     }
 
-
     public DatesPage openDatesPage() {
-        selectServiceDropdownValue(MenuItems.DATES);
-        DatesPage datesPage = new DatesPage();
-        return datesPage;
+        selectServiceMenuItem(MenuItems.DATES);
+        return new DatesPage();
     }
 
 }

@@ -22,12 +22,6 @@ public class DatesPage {
         assertEquals(getWebDriver().getTitle(), title);
     }
 
- /*   public void checkLogs(int newValue, String toFrom) {
-        //assertTrue(logs.getText().contains("Range 2(" + toFrom + "):" + newValue + " link clicked"));
-        System.out.println(logs.getText());
-    }
-*/
-
     public void setLeftSlider(int value) {
         int currentValue = Integer.parseInt(sliderValues.get(0).getText());
         if (currentValue >= value) {
@@ -40,6 +34,7 @@ public class DatesPage {
                 sliders.get(0).sendKeys(Keys.ARROW_RIGHT);
             }
         }
+
     }
 
     public void setRightSlider(int value) {
@@ -54,13 +49,15 @@ public class DatesPage {
                 sliders.get(1).sendKeys(Keys.ARROW_RIGHT);
             }
         }
+
     }
 
-    public void checkLeftSliderValue(int value) {
+    public void checkLeftSliderValueIs(int value) {
         assertEquals(Integer.parseInt(sliderValues.get(0).getText()), value);
     }
 
-    public void checkRightSliderValue(int value) {
+    public void checkRightSliderValueIs(int value) {
         assertEquals(Integer.parseInt(sliderValues.get(1).getText()), value);
     }
+
 }

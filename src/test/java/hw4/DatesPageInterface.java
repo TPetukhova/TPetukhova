@@ -29,25 +29,26 @@ public class DatesPageInterface extends SelenideTestBase {
         // 4 - Set sliders from 0 to 100
         datesPage.setLeftSlider(0);
         datesPage.setRightSlider(100);
-        datesPage.checkLeftSliderValue(0);
-        datesPage.checkRightSliderValue(100);
+        datesPage.checkLeftSliderValueIs(0);
+        datesPage.checkRightSliderValueIs(100);
 
         // 5 - Set sliders from 0 to 0
         datesPage.setLeftSlider(0);
         datesPage.setRightSlider(0);
-        datesPage.checkLeftSliderValue(0);
-        datesPage.checkRightSliderValue(0);
+        datesPage.checkLeftSliderValueIs(0);
+        datesPage.checkRightSliderValueIs(0);
 
         // 6 - Set sliders from 100 to 100
         datesPage.setRightSlider(100);
         datesPage.setLeftSlider(100);
-        datesPage.checkLeftSliderValue(100);
-        datesPage.checkRightSliderValue(100);
+        datesPage.checkLeftSliderValueIs(100);
+        datesPage.checkRightSliderValueIs(100);
 
         // 7 - Set sliders from 30 to 70
         datesPage.setLeftSlider(30);
         datesPage.setRightSlider(70);
-        datesPage.checkLeftSliderValue(30);
-        datesPage.checkRightSliderValue(70);
+        datesPage.checkLeftSliderValueIs(30);
+        datesPage.checkRightSliderValueIs(70);
+
     }
 }

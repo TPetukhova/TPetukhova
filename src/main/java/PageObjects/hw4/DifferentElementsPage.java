@@ -1,5 +1,6 @@
 package PageObjects.hw4;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import enums.hw4.Colors;
 import enums.hw4.Elements;
@@ -43,18 +44,18 @@ public class DifferentElementsPage {
 
     public void checkCheckboxes() {
         assertEquals(checkboxes.stream().map(SelenideElement::getText).collect(Collectors.toList()),
-        Stream.of(Elements.values()).map(Elements::toString).collect(Collectors.toList()));
+                Stream.of(Elements.values()).map(Elements::toString).collect(Collectors.toList()));
     }
 
     public void checkRadioButtons() {
         assertEquals(radioButtons.stream().map(SelenideElement::getText).collect(Collectors.toList()),
-        Stream.of(Metals.values()).map(Metals::toString).collect(Collectors.toList()));
+                Stream.of(Metals.values()).map(Metals::toString).collect(Collectors.toList()));
     }
 
     public void checkDropdown() {
         assertTrue(dropdown.isDisplayed());
         assertEquals(dropdown.$$("option").stream().map(WebElement::getText).collect(Collectors.toList()),
-        Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
+                Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
     }
 
     public void checkButtons() {
@@ -63,29 +64,19 @@ public class DifferentElementsPage {
 
     }
 
-    public void checkRightSection() {
-        assertTrue(rightSection.isDisplayed());
-    }
-
     public void checkLeftSection() {
         assertTrue(leftSection.isDisplayed());
     }
 
-    public void selectCheckbox(Elements element) {
-        for (SelenideElement checkbox : checkboxes) {
-            if (checkbox.getText().contains(element.toString())) {
-                checkbox.$("input").setSelected(true);
-                assertTrue(checkbox.$("input").isSelected());
-                break;
-            }
-        }
+    public void checkRightSection() {
+        assertTrue(rightSection.isDisplayed());
     }
 
-    public void unSelectCheckbox(Elements element) {
+    public void setCheckboxState(Elements element, boolean state) {
         for (SelenideElement checkbox : checkboxes) {
             if (checkbox.getText().contains(element.toString())) {
-                checkbox.$("input").setSelected(false);
-                assertTrue(!checkbox.$("input").isSelected());
+                checkbox.$("input").setSelected(state);
+                assertEquals(checkbox.$("input").is(Condition.checked), state);
                 break;
             }
         }
@@ -101,9 +92,7 @@ public class DifferentElementsPage {
     }
 
     public void checkLogs(Elements element, boolean condition) {
-        if (element instanceof Elements) {
             assertTrue(logs.getText().toLowerCase().contains(element.toString().toLowerCase() + ": condition changed to " + condition));
-        }
     }
 
     public void checkLogs(Object object) {
