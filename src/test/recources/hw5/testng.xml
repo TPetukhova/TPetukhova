@@ -3,8 +3,9 @@
 <suite name="DifferentElementsPageSuite" parallel="methods" thread-count="3" verbose="1" >
     <test name="DifferentElementsPageInterface" >
         <classes>
-            <class name="hw4.DifferentElementsPageInterface" />
-            <class name="hw5.DifferentElementsPageStyle" />
+            <class name="hw4.DifferentElementsPageInterface"/>
+            <class name="hw4.DatesPageInterface"/>
+            <class name="hw5.DifferentElementsPageStyle"/>
         </classes>
     </test>
 </suite>

@@ -2,7 +2,7 @@ package hw5;
 
 import PageObjects.hw5.DifferentElementsPage;
 import PageObjects.hw5.HomePage;
-import base.hw4.SelenideTestBase;
+import base.hw5.SelenideTestBase;
 import enums.hw5.Colors;
 import enums.hw5.Elements;
 import enums.hw5.Metals;
@@ -15,10 +15,10 @@ import org.testng.annotations.Test;
 
 import static enums.hw5.Users.PITER_CHAILOVSKII;
 
-@Story("Web Elements on Different Elements Page")
+@Story("Buttons on Different Elements Page")
 @Feature("Different Elements Page")
 @Listeners({AllureAttachmentListener.class})
-public class DifferentElementsPageStyle extends SelenideTestBase {
+public class DifferentElementsPageLayout extends SelenideTestBase {
 
     private HomePage homePage;
     private DifferentElementsPage differentElementsPage;
@@ -76,7 +76,7 @@ public class DifferentElementsPageStyle extends SelenideTestBase {
 
         // 12 - select radio buttons, check logs
         differentElementsPage.selectRadioButton(Metals.Selen);
-        differentElementsPage.checkLogs(Metals.Gold);
+        differentElementsPage.checkLogs(Metals.Selen);
 
         // 13 - select value in dropdown
         differentElementsPage.selectDropdown(Colors.Yellow);

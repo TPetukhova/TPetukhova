@@ -4,6 +4,7 @@
     <test name="DifferentElementsPageInterface" >
         <classes>
             <class name="hw4.DifferentElementsPageInterface"/>
+            <class name="hw5.DifferentElementsPageLayout"/>
             <class name="hw5.DifferentElementsPageStyle"/>
         </classes>
     </test>
