@@ -12,6 +12,7 @@
         <allure.version>2.6.0</allure.version>
         <aspectj.version>1.8.12</aspectj.version>
         <suiteXmlFile>allureConfig.xml</suiteXmlFile>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -109,7 +110,7 @@
                     <version>2.21.0</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>src/test/resources/hw5/${suiteXmlFile}</suiteXmlFile>
+                            <suiteXmlFile>src/test/recources/hw5/${suiteXmlFile}</suiteXmlFile>
                         </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
