@@ -1,10 +1,12 @@
-package PageObjects.hw4;
+package PageObjects.hw6;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import enums.hw4.Colors;
-import enums.hw4.Elements;
-import enums.hw4.Metals;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import enums.hw6.Colors;
+import enums.hw6.Elements;
+import enums.hw6.Metals;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import static org.testng.Assert.assertTrue;
 
 public class DifferentElementsPage {
 
+    // add Step annotations
+
     private final String title = "Different Element";
     private final String url = "https://epam.github.io/JDI/different-elements.html";
 
@@ -28,8 +32,6 @@ public class DifferentElementsPage {
 
     private SelenideElement dropdown = $("select[class='uui-form-element']");
 
-    private List<SelenideElement> dropdownOptions = dropdown.$$("option");
-
     private SelenideElement defaultButton = $("button[name='Default Button']");
 
     private SelenideElement secondButton = $("input.uui-button");
@@ -38,12 +40,66 @@ public class DifferentElementsPage {
 
     private SelenideElement leftSection = $("[name='navigation-sidebar']");
 
-    private SelenideElement input = $("input");
-
     private SelenideElement logs = $(".logs");
 
+    @Then("Different Elements page is displayed")
+    public void differentElementsPageIsDisplayed() {
+        assertEquals(getWebDriver().getCurrentUrl(), url);
+    }
+
+    @Then("Page Title is Different Element")
     public void checkPageTitle() {
         assertEquals(getWebDriver().getTitle(), title);
+    }
+
+    @Then("Different Elements page contains correct elements")
+    public void differentElementsPageContainsCorrectElements() {
+        checkCheckboxes();
+        checkRadioButtons();
+        checkDropdown();
+        checkButtons();
+    }
+
+    @Then("Different Elements page contains side sections")
+    public void differentElementsPageContainsSideSections() {
+        checkLeftSection();
+        checkRightSection();
+
+    }
+
+    @When("I select (.+) checkbox")
+    public void iSelectCheckbox(Elements element) {
+        setCheckboxState(element, true);
+    }
+
+    @When("I unselect (.+) checkbox")
+    public void iUnselectCheckbox(Elements element) {
+        setCheckboxState(element, false);
+    }
+
+    @Then("Logs contain entry: Element (.+) set to (.+)")
+    public void logsContainEntryForElement(Elements element, boolean condition) {
+        assertTrue(logs.getText().toLowerCase().contains(element.toString().toLowerCase() + ": condition changed to " + condition));
+    }
+
+    @When("Radiobutton (.+) is selected")
+    public void selectRadiobutton(Metals metal) {
+        selectRadioButton(metal);
+    }
+
+    @Then("Logs contain entry: Radiobutton (.+) is selected")
+    public void logsContainEntryForRadioButton(Metals metal) {
+        checkLogs(metal);
+    }
+
+    @When("Dropdown (.+) is chosen")
+    public void dropdownIsChosen(Colors color) {
+        selectDropdown(color);
+    }
+
+    @Then("Logs contain entry: (.+) is chosen")
+    public void logsContainEntryForDropdown(Colors color) {
+        checkLogs(color);
     }
 
     public void checkCheckboxes() {
@@ -57,22 +113,23 @@ public class DifferentElementsPage {
     }
 
     public void checkDropdown() {
-        dropdown.shouldBe(Condition.visible);
-        assertEquals(dropdownOptions.stream().map(WebElement::getText).collect(Collectors.toList()),
+        assertTrue(dropdown.isDisplayed());
+        assertEquals(dropdown.$$("option").stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
     }
 
     public void checkButtons() {
-        defaultButton.shouldBe(Condition.visible);
-        secondButton.shouldBe(Condition.visible);
+        assertTrue(defaultButton.isDisplayed());
+        assertTrue(secondButton.isDisplayed());
+
     }
 
     public void checkLeftSection() {
-        leftSection.shouldBe(Condition.visible);
+        assertTrue(leftSection.isDisplayed());
     }
 
     public void checkRightSection() {
-        rightSection.shouldBe(Condition.visible);
+        assertTrue(rightSection.isDisplayed());
     }
 
     public void setCheckboxState(Elements element, boolean state) {
@@ -92,10 +149,6 @@ public class DifferentElementsPage {
                 break;
             }
         }
-    }
-
-    public void checkLogs(Elements element, boolean condition) {
-        assertTrue(logs.getText().toLowerCase().contains(element.toString().toLowerCase() + ": condition changed to " + condition));
     }
 
     public void checkLogs(Object object) {

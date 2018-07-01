@@ -1,5 +1,6 @@
 package PageObjects.hw4;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import enums.hw4.MenuItems;
 import enums.hw4.Users;
@@ -42,7 +43,11 @@ public class HomePage {
 
     private SelenideElement serviceMenu = $("ul[class='dropdown-menu']");
 
+    private List<SelenideElement> serviceMenuItems = serviceMenu.$$("li");
+
     private SelenideElement serviceMenuOnLeftSection = $(".sidebar-menu > li:nth-child(3)");
+
+    private List<SelenideElement> getServiceMenuOnLeftSectionItems = serviceMenuOnLeftSection.$$("li");
 
     public void openPage() {
         open(url);
@@ -60,7 +65,7 @@ public class HomePage {
     }
 
     public void checkSingedInUsername(Users user) {
-        assertEquals(username.getText(), user.name);
+        username.shouldHave(Condition.text(user.name));
     }
 
     public void checkImagesDisplayed() {
@@ -76,27 +81,27 @@ public class HomePage {
     }
 
     public void checkShortHeaderText() {
-        assertEquals(shortHeader.getText(), "EPAM FRAMEWORK WISHES…");
+        shortHeader.shouldHave(Condition.text("EPAM FRAMEWORK WISHES…"));
     }
 
     public void checkLongHeaderText() {
-        assertEquals(longHeader.getText(), "LOREM IPSUM DOLOR SIT AMET, " +
+        longHeader.shouldHave(Condition.text("LOREM IPSUM DOLOR SIT AMET, " +
                 "CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. " +
                 "UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI " +
                 "UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT " +
-                "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.");
+                "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR."));
     }
 
     public void checkServiceMenuItems() {
         serviceDropdown.click();
-        assertEquals(serviceMenu.$$("li").stream().map(WebElement::getText).collect(Collectors.toList()),
+        assertEquals(serviceMenuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));
 
     }
 
     public void checkServiceMenuItemsOnLeftSection() {
         serviceMenuOnLeftSection.click();
-        assertEquals(serviceMenuOnLeftSection.$$("li").stream().map(WebElement::getText).collect(Collectors.toList()),
+        assertEquals(getServiceMenuOnLeftSectionItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(MenuItems::toString).collect(Collectors.toList()));
 
     }

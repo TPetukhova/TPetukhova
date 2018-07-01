@@ -29,6 +29,8 @@ public class DifferentElementsPage {
 
     private SelenideElement dropdown = $("select[class='uui-form-element']");
 
+    private List<SelenideElement> dropdownOptions = dropdown.$$("option");
+
     private SelenideElement defaultButton = $("button[name='Default Button']");
 
     private SelenideElement secondButton = $("input.uui-button");
@@ -36,6 +38,8 @@ public class DifferentElementsPage {
     private SelenideElement rightSection = $("[name='log-sidebar']");
 
     private SelenideElement leftSection = $("[name='navigation-sidebar']");
+
+    private SelenideElement input = $("input");
 
     private SelenideElement logs = $(".logs");
 
@@ -58,26 +62,25 @@ public class DifferentElementsPage {
 
     @Step("Verify Dropdowns")
     public void checkDropdown() {
-        assertTrue(dropdown.isDisplayed());
-        assertEquals(dropdown.$$("option").stream().map(WebElement::getText).collect(Collectors.toList()),
+        dropdown.shouldBe(Condition.visible);
+        assertEquals(dropdownOptions.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
     }
 
     @Step("Check Buttons")
     public void checkButtons() {
-        assertTrue(defaultButton.isDisplayed());
-        assertTrue(secondButton.isDisplayed());
-
+        defaultButton.shouldBe(Condition.visible);
+        secondButton.shouldBe(Condition.visible);
     }
 
     @Step("Check Side Sections")
     public void checkLeftSection() {
-        assertTrue(leftSection.isDisplayed());
+        leftSection.shouldBe(Condition.visible);
     }
 
     @Step("Check Side Sections")
     public void checkRightSection() {
-        assertTrue(rightSection.isDisplayed());
+        rightSection.shouldBe(Condition.visible);
     }
 
     @Step("Change Checkbox State")
@@ -119,6 +122,5 @@ public class DifferentElementsPage {
     public void selectDropdown(Colors color) {
         dropdown.selectOption(color.toString());
     }
-
 
 }

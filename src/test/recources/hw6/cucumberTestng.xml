@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Different Elements and User Table Pages Suite" parallel="methods" thread-count="3" verbose="1" >
+    <test name="Different Elements and User Table Interface" >
+        <classes>
+            <class name="runners.hw6.CucumberTestngRunner"/>
+        </classes>
+    </test>
+</suite>
