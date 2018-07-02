@@ -38,8 +38,6 @@ public class DifferentElementsPage {
 
     private SelenideElement leftSection = $("[name='navigation-sidebar']");
 
-    private SelenideElement input = $("input");
-
     private SelenideElement logs = $(".logs");
 
     public void checkPageTitle() {

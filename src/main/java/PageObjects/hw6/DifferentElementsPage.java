@@ -7,6 +7,7 @@ import cucumber.api.java.en.When;
 import enums.hw6.Colors;
 import enums.hw6.Elements;
 import enums.hw6.Metals;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -21,8 +22,6 @@ import static org.testng.Assert.assertTrue;
 
 public class DifferentElementsPage {
 
-    // add Step annotations
-
     private final String title = "Different Element";
     private final String url = "https://epam.github.io/JDI/different-elements.html";
 
@@ -31,6 +30,8 @@ public class DifferentElementsPage {
     private List<SelenideElement> radioButtons = $$(".label-radio");
 
     private SelenideElement dropdown = $("select[class='uui-form-element']");
+
+    private List<SelenideElement> dropdownOptions = dropdown.$$("option");
 
     private SelenideElement defaultButton = $("button[name='Default Button']");
 
@@ -42,63 +43,73 @@ public class DifferentElementsPage {
 
     private SelenideElement logs = $(".logs");
 
+    @Step("Check Different Elements Page open")
     @Then("Different Elements page is displayed")
-    public void differentElementsPageIsDisplayed() {
+    public void checkPageIsDisplayed() {
         assertEquals(getWebDriver().getCurrentUrl(), url);
     }
 
+    @Step("Check Title of Different Elements page")
     @Then("Page Title is Different Element")
     public void checkPageTitle() {
         assertEquals(getWebDriver().getTitle(), title);
     }
 
+    @Step("Check Different Elements page layout")
     @Then("Different Elements page contains correct elements")
-    public void differentElementsPageContainsCorrectElements() {
+    public void checkPageInterface() {
         checkCheckboxes();
         checkRadioButtons();
         checkDropdown();
         checkButtons();
     }
 
+    @Step("Check Different Elements Side Sections")
     @Then("Different Elements page contains side sections")
-    public void differentElementsPageContainsSideSections() {
+    public void checkSideSections() {
         checkLeftSection();
         checkRightSection();
-
     }
 
+    @Step("Select checkbox")
     @When("I select (.+) checkbox")
-    public void iSelectCheckbox(Elements element) {
+    public void selectCheckbox(Elements element) {
         setCheckboxState(element, true);
     }
 
+    @Step("Unselect checkbox")
     @When("I unselect (.+) checkbox")
-    public void iUnselectCheckbox(Elements element) {
+    public void unselectCheckbox(Elements element) {
         setCheckboxState(element, false);
     }
 
+    @Step("Check logs")
     @Then("Logs contain entry: Element (.+) set to (.+)")
-    public void logsContainEntryForElement(Elements element, boolean condition) {
+    public void checkLogs(Elements element, boolean condition) {
         assertTrue(logs.getText().toLowerCase().contains(element.toString().toLowerCase() + ": condition changed to " + condition));
     }
 
+    @Step("Select radiobutton")
     @When("Radiobutton (.+) is selected")
     public void selectRadiobutton(Metals metal) {
         selectRadioButton(metal);
     }
 
+    @Step("Check logs")
     @Then("Logs contain entry: Radiobutton (.+) is selected")
-    public void logsContainEntryForRadioButton(Metals metal) {
+    public void checkLogsRadiobutton(Metals metal) {
         checkLogs(metal);
     }
 
+    @Step("Select Dropdown value")
     @When("Dropdown (.+) is chosen")
-    public void dropdownIsChosen(Colors color) {
+    public void selectDropdownValue(Colors color) {
         selectDropdown(color);
     }
 
+    @Step("Check logs")
     @Then("Logs contain entry: (.+) is chosen")
-    public void logsContainEntryForDropdown(Colors color) {
+    public void checkLogsDropdown(Colors color) {
         checkLogs(color);
     }
 
@@ -113,23 +124,22 @@ public class DifferentElementsPage {
     }
 
     public void checkDropdown() {
-        assertTrue(dropdown.isDisplayed());
-        assertEquals(dropdown.$$("option").stream().map(WebElement::getText).collect(Collectors.toList()),
+        dropdown.shouldBe(Condition.visible);
+        assertEquals(dropdownOptions.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
     }
 
     public void checkButtons() {
-        assertTrue(defaultButton.isDisplayed());
-        assertTrue(secondButton.isDisplayed());
-
+        defaultButton.shouldBe(Condition.visible);
+        secondButton.shouldBe(Condition.visible);
     }
 
     public void checkLeftSection() {
-        assertTrue(leftSection.isDisplayed());
+        leftSection.shouldBe(Condition.visible);
     }
 
     public void checkRightSection() {
-        assertTrue(rightSection.isDisplayed());
+        rightSection.shouldBe(Condition.visible);
     }
 
     public void setCheckboxState(Elements element, boolean state) {
@@ -162,6 +172,5 @@ public class DifferentElementsPage {
     public void selectDropdown(Colors color) {
         dropdown.selectOption(color.toString());
     }
-
 
 }
