@@ -1,4 +1,4 @@
-package PageObjects.hw6;
+package pageObjects.hw6;
 
 import cucumber.api.java.After;
 

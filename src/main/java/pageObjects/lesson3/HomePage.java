@@ -1,4 +1,4 @@
-package PageObjects.lesson3;
+package pageObjects.lesson3;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

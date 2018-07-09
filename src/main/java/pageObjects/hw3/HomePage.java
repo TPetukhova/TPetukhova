@@ -1,4 +1,4 @@
-package PageObjects.hw3;
+package pageObjects.hw3;
 
 import enums.hw3.Users;
 import org.openqa.selenium.WebDriver;

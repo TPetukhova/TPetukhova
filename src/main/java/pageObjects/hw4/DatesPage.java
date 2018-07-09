@@ -1,22 +1,29 @@
-package PageObjects.hw4;
+package pageObjects.hw4;
 
 import com.codeborne.selenide.SelenideElement;
+import enums.hw4.FromTo;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class DatesPage {
 
     private final String title = "Dates";
     private final String url = "https://epam.github.io/JDI/dates.html";
 
-    private List<SelenideElement> sliders = $$(".ui-slider-handle");
+    @FindBy(css = ".ui-slider-handle")
+    private List<SelenideElement> sliders;
 
-    private List<SelenideElement> sliderValues = $$(".ui-slider-handle span");
+    @FindBy(css = ".ui-slider-handle span")
+    private List<SelenideElement> sliderValues;
+
+    @FindBy(css = ".logs")
+    private SelenideElement logs;
 
     public void checkPageTitle() {
         assertEquals(getWebDriver().getTitle(), title);
@@ -34,6 +41,11 @@ public class DatesPage {
                 sliders.get(0).sendKeys(Keys.ARROW_RIGHT);
             }
         }
+        if (value != 100) {
+            sliderValues.get(0).click();
+        } else {
+            sliderValues.get(1).click();
+        }
 
     }
 
@@ -49,15 +61,12 @@ public class DatesPage {
                 sliders.get(1).sendKeys(Keys.ARROW_RIGHT);
             }
         }
+        sliderValues.get(1).click();
 
     }
 
-    public void checkLeftSliderValueIs(int value) {
-        assertEquals(Integer.parseInt(sliderValues.get(0).getText()), value);
-    }
-
-    public void checkRightSliderValueIs(int value) {
-        assertEquals(Integer.parseInt(sliderValues.get(1).getText()), value);
+    public void checkLogs(FromTo slider, int value) {
+        assertTrue(logs.getText().contains(" Range 2(" + slider + "):" + value + " link clicked"));
     }
 
 }

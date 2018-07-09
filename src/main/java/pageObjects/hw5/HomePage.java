@@ -1,4 +1,4 @@
-package PageObjects.hw5;
+package pageObjects.hw5;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

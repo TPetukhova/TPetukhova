@@ -1,10 +1,11 @@
-package PageObjects.hw4;
+package pageObjects.hw4;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import enums.hw4.MenuItems;
 import enums.hw4.Users;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
@@ -21,36 +23,50 @@ public class HomePage {
     private final String url = "https://epam.github.io/JDI";
     private final String title = "Home Page";
 
-    private SelenideElement userIcon = $(".profile-photo");
+    @FindBy(css = ".profile-photo")
+    private SelenideElement userIcon;
 
-    private SelenideElement loginInput = $("#Name");
+    @FindBy(id = "Name")
+    private SelenideElement loginInput;
 
-    private SelenideElement passwordInput = $("#Password");
+    @FindBy(id = "Password")
+    private SelenideElement passwordInput;
 
-    private SelenideElement loginButton = $(".fa-sign-in");
+    @FindBy(css = ".fa-sign-in")
+    private SelenideElement loginButton;
 
-    private SelenideElement username = $(".profile-photo span");
+    @FindBy(css = ".profile-photo span")
+    private SelenideElement username;
 
-    private List<SelenideElement> images = $$(".icons-benefit");
+    @FindBy(css = ".icons-benefit")
+    private List<SelenideElement> images;
 
-    private List<SelenideElement> textItems = $$(".benefit-txt");
+    @FindBy(css = ".benefit-txt")
+    private List<SelenideElement> textItems;
 
-    private SelenideElement shortHeader = $("[name='main-title']");
+    @FindBy(css = "[name='main-title']")
+    private SelenideElement shortHeader;
 
-    private SelenideElement longHeader = $("[name='jdi-text']");
+    @FindBy(css = "[name='jdi-text']")
+    private SelenideElement longHeader;
 
-    private SelenideElement serviceDropdown = $("li[class='dropdown']");
+    @FindBy(css = "li[class='dropdown']")
+    private SelenideElement serviceDropdown;
 
-    private SelenideElement serviceMenu = $("ul[class='dropdown-menu']");
+    @FindBy(css = "ul[class='dropdown-menu']")
+    private SelenideElement serviceMenu;
 
-    private List<SelenideElement> serviceMenuItems = serviceMenu.$$("li");
+    @FindBy(css = "ul[class='dropdown-menu'] li")
+    private List<SelenideElement> serviceMenuItems;
 
-    private SelenideElement serviceMenuOnLeftSection = $(".sidebar-menu > li:nth-child(3)");
+    @FindBy(css = ".sidebar-menu > li:nth-child(3)")
+    private SelenideElement serviceMenuOnLeftSection;
 
-    private List<SelenideElement> getServiceMenuOnLeftSectionItems = serviceMenuOnLeftSection.$$("li");
+    @FindBy(css = ".sidebar-menu > li:nth-child(3) li")
+    private List<SelenideElement> getServiceMenuOnLeftSectionItems;
 
     public void openPage() {
-        open(url);
+        open(url, HomePage.class);
     }
 
     public void checkPageTitle() {
@@ -92,15 +108,21 @@ public class HomePage {
                 "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR."));
     }
 
-    public void checkServiceMenuItems() {
+    public void expandServiceMenuDropdown() {
         serviceDropdown.click();
+    }
+
+    public void checkServiceMenuItems() {
         assertEquals(serviceMenuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));
 
     }
 
-    public void checkServiceMenuItemsOnLeftSection() {
+    public void expandServiceMenuDropdownLeftSection() {
         serviceMenuOnLeftSection.click();
+    }
+
+    public void checkServiceMenuItemsOnLeftSection() {
         assertEquals(getServiceMenuOnLeftSectionItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(MenuItems::toString).collect(Collectors.toList()));
 
@@ -114,12 +136,12 @@ public class HomePage {
 
     public DifferentElementsPage openDifferentElementsPage() {
         selectServiceMenuItem(MenuItems.DIFFERENT_ELEMENTS);
-        return new DifferentElementsPage();
+        return page(DifferentElementsPage.class);
     }
 
     public DatesPage openDatesPage() {
         selectServiceMenuItem(MenuItems.DATES);
-        return new DatesPage();
+        return page(DatesPage.class);
     }
 
 }

@@ -1,10 +1,11 @@
-package PageObjects.hw4;
+package pageObjects.hw5;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import enums.hw4.Colors;
-import enums.hw4.Elements;
-import enums.hw4.Metals;
+import enums.hw5.Colors;
+import enums.hw5.Elements;
+import enums.hw5.Metals;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -40,39 +41,47 @@ public class DifferentElementsPage {
 
     private SelenideElement logs = $(".logs");
 
+    @Step("Verify Page Title")
     public void checkPageTitle() {
         assertEquals(getWebDriver().getTitle(), title);
     }
 
+    @Step("Verify Checkboxes")
     public void checkCheckboxes() {
         assertEquals(checkboxes.stream().map(SelenideElement::getText).collect(Collectors.toList()),
                 Stream.of(Elements.values()).map(Elements::toString).collect(Collectors.toList()));
     }
 
+    @Step("Verify Radio Buttons")
     public void checkRadioButtons() {
         assertEquals(radioButtons.stream().map(SelenideElement::getText).collect(Collectors.toList()),
                 Stream.of(Metals.values()).map(Metals::toString).collect(Collectors.toList()));
     }
 
+    @Step("Verify Dropdowns")
     public void checkDropdown() {
         dropdown.shouldBe(Condition.visible);
         assertEquals(dropdownOptions.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
     }
 
+    @Step("Check Buttons")
     public void checkButtons() {
         defaultButton.shouldBe(Condition.visible);
         secondButton.shouldBe(Condition.visible);
     }
 
+    @Step("Check Side Sections")
     public void checkLeftSection() {
         leftSection.shouldBe(Condition.visible);
     }
 
+    @Step("Check Side Sections")
     public void checkRightSection() {
         rightSection.shouldBe(Condition.visible);
     }
 
+    @Step("Change Checkbox State")
     public void setCheckboxState(Elements element, boolean state) {
         for (SelenideElement checkbox : checkboxes) {
             if (checkbox.getText().contains(element.toString())) {
@@ -83,6 +92,7 @@ public class DifferentElementsPage {
         }
     }
 
+    @Step("Change Radio Button State")
     public void selectRadioButton(Metals metal) {
         for (SelenideElement radio : radioButtons) {
             if (radio.getText().contains(metal.toString())) {
@@ -92,10 +102,12 @@ public class DifferentElementsPage {
         }
     }
 
+    @Step("Verify Logs")
     public void checkLogs(Elements element, boolean condition) {
         assertTrue(logs.getText().toLowerCase().contains(element.toString().toLowerCase() + ": condition changed to " + condition));
     }
 
+    @Step("Verify Logs")
     public void checkLogs(Object object) {
         if (object instanceof Metals) {
             assertTrue(logs.getText().toLowerCase().contains("metal: value changed to " + object.toString().toLowerCase()));
@@ -104,9 +116,9 @@ public class DifferentElementsPage {
         }
     }
 
+    @Step("Select Dropdown")
     public void selectDropdown(Colors color) {
         dropdown.selectOption(color.toString());
     }
-
 
 }

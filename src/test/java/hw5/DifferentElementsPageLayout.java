@@ -1,7 +1,7 @@
 package hw5;
 
-import PageObjects.hw5.DifferentElementsPage;
-import PageObjects.hw5.HomePage;
+import pageObjects.hw5.DifferentElementsPage;
+import pageObjects.hw5.HomePage;
 import base.hw5.SelenideTestBase;
 import enums.hw5.Colors;
 import enums.hw5.Elements;

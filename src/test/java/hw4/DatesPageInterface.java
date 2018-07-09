@@ -1,54 +1,80 @@
 package hw4;
 
-import PageObjects.hw4.DatesPage;
-import PageObjects.hw4.HomePage;
 import base.hw4.SelenideTestBase;
+import enums.hw4.Sliders;
 import enums.hw4.Users;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pageObjects.hw4.DatesPage;
+import pageObjects.hw4.HomePage;
+
+import static com.codeborne.selenide.Selenide.page;
 
 public class DatesPageInterface extends SelenideTestBase {
 
     private HomePage homePage;
     private DatesPage datesPage;
 
+    @BeforeClass
+    public void beforeClass() {
+        homePage = page(HomePage.class);
+    }
+
     @Test
     public void datesPageTest() {
-        // 1 - open web page in browser and check page title
-        homePage = new HomePage();
+        // 1 - Open test site by URL
         homePage.openPage();
+
+        // 2 - Assert Browser title
         homePage.checkPageTitle();
 
-        // 2 - perform login
+        // 3 - Perform login
         homePage.login(Users.PITER_CHAILOVSKII);
+
+        // 4 - Assert username in the left-top side of screen that user is logged in
         homePage.checkSingedInUsername(Users.PITER_CHAILOVSKII);
 
-        // 3 - open Dates page
+        // 5 - Open through the header menu Service -> Dates Page
         datesPage = homePage.openDatesPage();
         datesPage.checkPageTitle();
 
-        // 4 - Set sliders from 0 to 100
+        // 6 - Using drag-and-drop set Range Sliders from 0 to 100
         datesPage.setLeftSlider(0);
         datesPage.setRightSlider(100);
-        datesPage.checkLeftSliderValueIs(0);
-        datesPage.checkRightSliderValueIs(100);
 
-        // 5 - Set sliders from 0 to 0
+        // 7 - Assert that for "From" and "To" sliders there are logs row with corresponding values
+        datesPage.checkLogs(Sliders.From, 0);
+        datesPage.checkLogs(Sliders.To, 100);
+
+        // 8 - Using drag-and-drop set Range Sliders from 0 to 0
         datesPage.setLeftSlider(0);
         datesPage.setRightSlider(0);
-        datesPage.checkLeftSliderValueIs(0);
-        datesPage.checkRightSliderValueIs(0);
 
-        // 6 - Set sliders from 100 to 100
+        // 9 - Assert that for "From" and "To" sliders there are logs row with corresponding values
+        datesPage.checkLogs(Sliders.From,0);
+        datesPage.checkLogs(Sliders.To,0);
+
+        // 10 - Using drag-and-drop set Range Sliders from 100 to 100
         datesPage.setRightSlider(100);
         datesPage.setLeftSlider(100);
-        datesPage.checkLeftSliderValueIs(100);
-        datesPage.checkRightSliderValueIs(100);
 
-        // 7 - Set sliders from 30 to 70
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 11 - Assert that for "From" and "To" sliders there are logs row with corresponding values
+        datesPage.checkLogs(Sliders.From,100);
+        datesPage.checkLogs(Sliders.To,100);
+
+        // 12 - Using drag-and-drop set Range Sliders from 30 to 70
         datesPage.setLeftSlider(30);
         datesPage.setRightSlider(70);
-        datesPage.checkLeftSliderValueIs(30);
-        datesPage.checkRightSliderValueIs(70);
+
+        // 13 - Assert that for "From" and "To" sliders there are logs row with corresponding values
+        datesPage.checkLogs(Sliders.From,30);
+        datesPage.checkLogs(Sliders.To,70);
 
     }
 }

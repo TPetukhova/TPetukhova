@@ -12,13 +12,13 @@ import static enums.hw3.Users.PITER_CHAILOVSKII;
 public class HomePageInterface {
 
     private WebDriver driver;
-    private PageObjects.hw3.HomePage homePage;
+    private pageObjects.hw3.HomePage homePage;
 
     @BeforeMethod
     public void beforeMethod() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        homePage = PageFactory.initElements(driver, PageObjects.hw3.HomePage.class);
+        homePage = PageFactory.initElements(driver, pageObjects.hw3.HomePage.class);
     }
 
     @AfterMethod
