@@ -53,6 +53,7 @@ public class DatesPageInterface extends SelenideTestBase {
         // 9 - Assert that for "From" and "To" sliders there are logs row with corresponding values
         datesPage.checkLogs(FromTo.From,0);
         datesPage.checkLogs(FromTo.To,0);
+
         // 10 - Using drag-and-drop set Range Sliders from 100 to 100
         datesPage.setRightSlider(100);
         datesPage.setLeftSlider(100);

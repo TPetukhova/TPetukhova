@@ -79,7 +79,7 @@ public class DifferentElementsPageLayout extends SelenideTestBase {
         differentElementsPage.selectRadioButton(Metals.Selen);
 
         // 15 - Assert that for radio button there is a log row and value is corresponded to the status of button
-        differentElementsPage.checkLogs(Metals.Gold);
+        differentElementsPage.checkLogs(Metals.Selen);
 
         // 16 - Select in dropdown
         differentElementsPage.selectDropdownValue(Colors.Yellow);
