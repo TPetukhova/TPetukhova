@@ -9,13 +9,13 @@ import enums.hw6.Elements;
 import enums.hw6.Metals;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -25,23 +25,36 @@ public class DifferentElementsPage {
     private final String title = "Different Element";
     private final String url = "https://epam.github.io/JDI/different-elements.html";
 
-    private List<SelenideElement> checkboxes = $$(".label-checkbox");
+    @FindBy(css = ".label-checkbox")
+    private List<SelenideElement> checkboxes;
 
-    private List<SelenideElement> radioButtons = $$(".label-radio");
+    @FindBy(css = ".label-radio")
+    private List<SelenideElement> radioButtons;
 
-    private SelenideElement dropdown = $("select[class='uui-form-element']");
+    @FindBy(css = "select[class='uui-form-element']")
+    private SelenideElement dropdown;
 
-    private List<SelenideElement> dropdownOptions = dropdown.$$("option");
+    @FindBy(css = "select[class='uui-form-element'] option")
+    private List<SelenideElement> dropdownOptions;
 
-    private SelenideElement defaultButton = $("button[name='Default Button']");
+    @FindBy(css = "button[name='Default Button']")
+    private SelenideElement defaultButton;
 
-    private SelenideElement secondButton = $("input.uui-button");
+    @FindBy(css = "input.uui-button")
+    private SelenideElement secondButton;
 
-    private SelenideElement rightSection = $("[name='log-sidebar']");
+    @FindBy(css = "[name='log-sidebar']")
+    private SelenideElement rightSection;
 
-    private SelenideElement leftSection = $("[name='navigation-sidebar']");
+    @FindBy(css = "[name='navigation-sidebar']")
+    private SelenideElement leftSection;
 
-    private SelenideElement logs = $(".logs");
+    @FindBy(css = ".logs")
+    private SelenideElement logs;
+
+    public DifferentElementsPage() {
+        page(this);
+    }
 
     @Step("Check Different Elements Page open")
     @Then("Different Elements page is displayed")
@@ -92,7 +105,12 @@ public class DifferentElementsPage {
     @Step("Select radiobutton")
     @When("Radiobutton (.+) is selected")
     public void selectRadiobutton(Metals metal) {
-        selectRadioButton(metal);
+        for (SelenideElement radio : radioButtons) {
+            if (radio.getText().contains(metal.toString())) {
+                radio.$("input").click();
+                break;
+            }
+        }
     }
 
     @Step("Check logs")
@@ -147,15 +165,6 @@ public class DifferentElementsPage {
             if (checkbox.getText().contains(element.toString())) {
                 checkbox.$("input").setSelected(state);
                 assertEquals(checkbox.$("input").is(Condition.checked), state);
-                break;
-            }
-        }
-    }
-
-    public void selectRadioButton(Metals metal) {
-        for (SelenideElement radio : radioButtons) {
-            if (radio.getText().contains(metal.toString())) {
-                radio.$("input").click();
                 break;
             }
         }

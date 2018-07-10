@@ -80,11 +80,11 @@ public class HomePage {
         loginButton.click();
     }
 
-    public void checkSingedInUsername(Users user) {
+    public void checkUsername(Users user) {
         username.shouldHave(Condition.text(user.name));
     }
 
-    public void checkImagesDisplayed() {
+    public void checkImages() {
         assertEquals(images.stream().filter(WebElement::isDisplayed).count(), 4);
     }
 
@@ -96,11 +96,11 @@ public class HomePage {
                                 "some external projects),\n" + "wish to get more…"));
     }
 
-    public void checkShortHeaderText() {
+    public void checkShortHeader() {
         shortHeader.shouldHave(Condition.text("EPAM FRAMEWORK WISHES…"));
     }
 
-    public void checkLongHeaderText() {
+    public void checkLongHeader() {
         longHeader.shouldHave(Condition.text("LOREM IPSUM DOLOR SIT AMET, " +
                 "CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. " +
                 "UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI " +
@@ -108,21 +108,21 @@ public class HomePage {
                 "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR."));
     }
 
-    public void expandServiceMenuDropdown() {
+    public void openServiceMenu() {
         serviceDropdown.click();
     }
 
-    public void checkServiceMenuItems() {
+    public void checkServiceMenu() {
         assertEquals(serviceMenuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));
 
     }
 
-    public void expandServiceMenuDropdownLeftSection() {
+    public void openServiceMenuLeft() {
         serviceMenuOnLeftSection.click();
     }
 
-    public void checkServiceMenuItemsOnLeftSection() {
+    public void checkServiceMenuLeft() {
         assertEquals(getServiceMenuOnLeftSectionItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(MenuItems::toString).collect(Collectors.toList()));
 

@@ -57,7 +57,7 @@ public class DifferentElementsPage {
                 Stream.of(Elements.values()).map(Elements::toString).collect(Collectors.toList()));
     }
 
-    public void checkRadioButtons() {
+    public void checkRadios() {
         assertEquals(radioButtons.stream().map(SelenideElement::getText).collect(Collectors.toList()),
                 Stream.of(Metals.values()).map(Metals::toString).collect(Collectors.toList()));
     }
@@ -112,7 +112,7 @@ public class DifferentElementsPage {
         }
     }
 
-    public void selectDropdown(Colors color) {
+    public void selectDropdownValue(Colors color) {
         dropdown.selectOption(color.toString());
     }
 

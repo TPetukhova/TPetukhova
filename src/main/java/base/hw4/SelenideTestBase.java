@@ -13,4 +13,5 @@ public class SelenideTestBase {
         Configuration.pollingInterval = 200;
         Configuration.collectionsPollingInterval = 200;
     }
+
 }

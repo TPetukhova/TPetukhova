@@ -4,8 +4,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import enums.hw5.MenuItems;
 import enums.hw5.Users;
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
@@ -22,45 +23,56 @@ public class HomePage {
     private final String url = "https://epam.github.io/JDI";
     private final String title = "Home Page";
 
-    private SelenideElement userIcon = $(".profile-photo");
+    @FindBy(css = ".profile-photo")
+    private SelenideElement userIcon;
 
-    private SelenideElement loginInput = $("#Name");
+    @FindBy(id = "Name")
+    private SelenideElement loginInput;
 
-    private SelenideElement passwordInput = $("#Password");
+    @FindBy(id = "Password")
+    private SelenideElement passwordInput;
 
-    private SelenideElement loginButton = $(".fa-sign-in");
+    @FindBy(css = ".fa-sign-in")
+    private SelenideElement loginButton;
 
-    private SelenideElement username = $(".profile-photo span");
+    @FindBy(css = ".profile-photo span")
+    private SelenideElement username;
 
-    private List<SelenideElement> images = $$(".icons-benefit");
+    @FindBy(css = ".icons-benefit")
+    private List<SelenideElement> images;
 
-    private List<SelenideElement> textItems = $$(".benefit-txt");
+    @FindBy(css = ".benefit-txt")
+    private List<SelenideElement> textItems;
 
-    private SelenideElement shortHeader = $("[name='main-title']");
+    @FindBy(css = "[name='main-title']")
+    private SelenideElement shortHeader;
 
-    private SelenideElement longHeader = $("[name='jdi-text']");
+    @FindBy(css = "[name='jdi-text']")
+    private SelenideElement longHeader;
 
-    private SelenideElement serviceDropdown = $("li[class='dropdown']");
+    @FindBy(css = "li[class='dropdown']")
+    private SelenideElement serviceDropdown;
 
-    private SelenideElement serviceMenu = $("ul[class='dropdown-menu']");
+    @FindBy(css = "ul[class='dropdown-menu']")
+    private SelenideElement serviceMenu;
 
-    private List<SelenideElement> serviceMenuItems = serviceMenu.$$("li");
+    @FindBy(css = "ul[class='dropdown-menu'] li")
+    private List<SelenideElement> serviceMenuItems;
 
-    private SelenideElement serviceMenuOnLeftSection = $(".sidebar-menu > li:nth-child(3)");
+    @FindBy(css = ".sidebar-menu > li:nth-child(3)")
+    private SelenideElement serviceMenuOnLeftSection;
 
-    private List<SelenideElement> getServiceMenuOnLeftSectionItems = serviceMenuOnLeftSection.$$("li");
+    @FindBy(css = ".sidebar-menu > li:nth-child(3) li")
+    private List<SelenideElement> getServiceMenuOnLeftSectionItems;
 
-    @Step("Open Home Page")
     public void openPage() {
-        open(url);
+        open(url, HomePage.class);
     }
 
-    @Step("Verify Page Title")
     public void checkPageTitle() {
         assertEquals(getWebDriver().getTitle(), title);
     }
 
-    @Step("Login")
     public void login(Users user) {
         userIcon.click();
         loginInput.sendKeys(user.login);
@@ -68,17 +80,14 @@ public class HomePage {
         loginButton.click();
     }
 
-    @Step("Verify Logged in User")
-    public void checkSingedInUsername(Users user) {
+    public void checkUsername(Users user) {
         username.shouldHave(Condition.text(user.name));
     }
 
-    @Step("Verify Displayed Images")
-    public void checkImagesDisplayed() {
+    public void checkImages() {
         assertEquals(images.stream().filter(WebElement::isDisplayed).count(), 4);
     }
 
-    @Step("Verify Text Items")
     public void checkTextItems() {
         assertEquals(textItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Arrays.asList("To include good practices\n" + "and ideas from successful\n" +
@@ -87,13 +96,11 @@ public class HomePage {
                                 "some external projects),\n" + "wish to get more…"));
     }
 
-    @Step("Verify Header")
-    public void checkShortHeaderText() {
+    public void checkShortHeader() {
         shortHeader.shouldHave(Condition.text("EPAM FRAMEWORK WISHES…"));
     }
 
-    @Step("Verify Long Header")
-    public void checkLongHeaderText() {
+    public void checkLongHeader() {
         longHeader.shouldHave(Condition.text("LOREM IPSUM DOLOR SIT AMET, " +
                 "CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. " +
                 "UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI " +
@@ -101,40 +108,40 @@ public class HomePage {
                 "IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR."));
     }
 
-    @Step("Verify Service Menu")
-    public void checkServiceMenuItems() {
+    public void openServiceMenu() {
         serviceDropdown.click();
+    }
+
+    public void checkServiceMenu() {
         assertEquals(serviceMenuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));
 
     }
 
-    @Step("Verify Left Service Menu")
-    public void checkServiceMenuItemsOnLeftSection() {
+    public void openServiceMenuLeft() {
         serviceMenuOnLeftSection.click();
+    }
+
+    public void checkServiceMenuLeft() {
         assertEquals(getServiceMenuOnLeftSectionItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(MenuItems::toString).collect(Collectors.toList()));
 
     }
 
-    @Step("Verify Service Menu")
     public void selectServiceMenuItem(MenuItems item) {
         serviceDropdown.click();
         serviceMenu.find(withText(item.toString())).click();
 
     }
 
-    @Step("Open Different Elements Page")
     public DifferentElementsPage openDifferentElementsPage() {
         selectServiceMenuItem(MenuItems.DIFFERENT_ELEMENTS);
-        return new DifferentElementsPage();
+        return page(DifferentElementsPage.class);
     }
 
-    @Step("Open Dates Page")
     public DatesPage openDatesPage() {
         selectServiceMenuItem(MenuItems.DATES);
-        return new DatesPage();
+        return page(DatesPage.class);
     }
 
 }
-

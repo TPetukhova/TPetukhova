@@ -1,93 +1,97 @@
 package hw5;
 
-import pageObjects.hw5.DifferentElementsPage;
-import pageObjects.hw5.HomePage;
 import base.hw5.SelenideTestBase;
 import enums.hw5.Colors;
 import enums.hw5.Elements;
 import enums.hw5.Metals;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
-import listeners.hw5.AllureAttachmentListener;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pageObjects.hw5.DifferentElementsPage;
+import pageObjects.hw5.HomePage;
 
+import static com.codeborne.selenide.Selenide.page;
 import static enums.hw5.Users.PITER_CHAILOVSKII;
 
-@Story("Buttons on Different Elements Page")
-@Feature("Different Elements Page")
-@Listeners({AllureAttachmentListener.class})
 public class DifferentElementsPageLayout extends SelenideTestBase {
 
     private HomePage homePage;
     private DifferentElementsPage differentElementsPage;
 
-    @BeforeMethod
-    public void beforeMethod() {
-        homePage = new HomePage();
+    @BeforeClass
+    public void beforeClass() {
+        homePage = page(HomePage.class);
     }
 
     @Test
     public void HomePageAndDifferentElementsLayoutsTest() {
-        // 1 - open web page in browser and check page title
+
+        // 1 - Open test site by URL
         homePage.openPage();
+
+        // 2 - Assert Browser title
         homePage.checkPageTitle();
 
-        // 2 - perform login
+        // 3 - Perform login
         homePage.login(PITER_CHAILOVSKII);
-        homePage.checkSingedInUsername(PITER_CHAILOVSKII);
 
-        // 3 - check images and text on the page
-        homePage.checkImagesDisplayed();
+        // 4 - Assert User name in the left-top side of screen that user is logged in
+        homePage.checkUsername(PITER_CHAILOVSKII);
+
+        // 5 - Check interface on Home page, it contains all needed elements
+        homePage.checkImages();
         homePage.checkTextItems();
-        homePage.checkLongHeaderText();
-        homePage.checkShortHeaderText();
+        homePage.checkLongHeader();
+        homePage.checkShortHeader();
 
-        // 4 - check Service menu on the header
-        homePage.checkServiceMenuItems();
+        // 6 - Click on "Service" subcategory in the header and check that dropdown contains options
+        homePage.openServiceMenu();
+        homePage.checkServiceMenu();
 
-        // 5 - check Service menu on the Left Panel
-        homePage.checkServiceMenuItemsOnLeftSection();
+        // 7 - Click on "Service" subcategory in the left section and check that dropdown contains options
+        homePage.openServiceMenuLeft();
+        homePage.checkServiceMenuLeft();
 
-        // 6 - open Different Elements page
+        // 8 - Open through the header menu Service -> Different Elements page
         differentElementsPage = homePage.openDifferentElementsPage();
         differentElementsPage.checkPageTitle();
 
-        // 7 - check Checkboxes
+        // 9 - Check interface on Different Elements page, it contains all needed elements
         differentElementsPage.checkCheckboxes();
-
-        // 8 - check radio buttons
-        differentElementsPage.checkRadioButtons();
-
-        // 9 - check dropdown values and buttons
+        differentElementsPage.checkRadios();
         differentElementsPage.checkDropdown();
         differentElementsPage.checkButtons();
 
-        // 10 - check right and left sections
+        // 10 - Assert there is Right Section
         differentElementsPage.checkRightSection();
+
+        // 11 - Assert there is Left Section
         differentElementsPage.checkLeftSection();
 
-        // 11 - select Water and Wind checkboxes, check logs
+        // 12 - Select Checkboxes
         differentElementsPage.setCheckboxState(Elements.Water, true);
         differentElementsPage.setCheckboxState(Elements.Wind, true);
+
+        // 13 - Assert that for each checkbox there is an individual log row and value is corresponded to the value of checkbox
         differentElementsPage.checkLogs(Elements.Water, true);
         differentElementsPage.checkLogs(Elements.Wind, true);
 
-        // 12 - select radio buttons, check logs
+        // 14 - Select radio button
         differentElementsPage.selectRadioButton(Metals.Selen);
-        differentElementsPage.checkLogs(Metals.Selen);
 
-        // 13 - select value in dropdown
-        differentElementsPage.selectDropdown(Colors.Yellow);
+        // 15 - Assert that for radio button there is a log row and value is corresponded to the status of button
+        differentElementsPage.checkLogs(Metals.Gold);
+
+        // 16 - Select in dropdown
+        differentElementsPage.selectDropdownValue(Colors.Yellow);
+
+        // 17 - Assert that for dropdown there is a log row and value is corresponded to the selected value
         differentElementsPage.checkLogs(Colors.Yellow);
 
-        // 14 - undo selection of checkboxes, check logs
+        // 18 - Unselect and assert checkboxes
         differentElementsPage.setCheckboxState(Elements.Water, false);
         differentElementsPage.setCheckboxState(Elements.Wind, false);
         differentElementsPage.checkLogs(Elements.Water, false);
         differentElementsPage.checkLogs(Elements.Wind, false);
 
     }
-
 }

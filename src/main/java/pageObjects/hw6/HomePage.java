@@ -9,6 +9,7 @@ import enums.hw6.MenuItems;
 import enums.hw6.Users;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,37 +26,56 @@ public class HomePage {
     private final String url = "https://epam.github.io/JDI";
     private final String title = "Home Page";
 
-    private SelenideElement userIcon = $(".profile-photo");
+    @FindBy(css = ".profile-photo")
+    private SelenideElement userIcon;
 
-    private SelenideElement loginInput = $("#Name");
+    @FindBy(css = "#Name")
+    private SelenideElement loginInput;
 
-    private SelenideElement passwordInput = $("#Password");
+    @FindBy(css = "#Password")
+    private SelenideElement passwordInput;
 
-    private SelenideElement loginButton = $(".fa-sign-in");
+    @FindBy(css = ".fa-sign-in")
+    private SelenideElement loginButton;
 
-    private SelenideElement username = $(".profile-photo span");
+    @FindBy(css = ".profile-photo span")
+    private SelenideElement username;
 
-    private List<SelenideElement> images = $$(".icons-benefit");
+    @FindBy(css = ".icons-benefit")
+    private List<SelenideElement> images;
 
-    private List<SelenideElement> textItems = $$(".benefit-txt");
+    @FindBy(css = ".benefit-txt")
+    private List<SelenideElement> textItems;
 
-    private SelenideElement shortHeader = $("[name='main-title']");
+    @FindBy(css = "[name='main-title']")
+    private SelenideElement shortHeader;
 
-    private SelenideElement longHeader = $("[name='jdi-text']");
+    @FindBy(css = "[name='jdi-text']")
+    private SelenideElement longHeader;
 
-    private SelenideElement serviceDropdown = $("li[class='dropdown']");
+    @FindBy(css = "li[class='dropdown']")
+    private SelenideElement serviceDropdown;
 
-    private SelenideElement serviceMenu = $("ul[class='dropdown-menu']");
+    @FindBy(css = "ul[class='dropdown-menu']")
+    private SelenideElement serviceMenu;
 
-    private List<SelenideElement> serviceMenuItems = serviceMenu.$$("li");
+    @FindBy(css = "ul[class='dropdown-menu'] li")
+    private List<SelenideElement> serviceMenuItems;
 
-    private SelenideElement serviceMenuOnLeftSection = $(".sidebar-menu > li:nth-child(3)");
+    @FindBy(css = ".sidebar-menu > li:nth-child(3)")
+    private SelenideElement serviceMenuOnLeftSection;
 
-    private List<SelenideElement> getServiceMenuOnLeftSectionItems = serviceMenuOnLeftSection.$$("li");
+    @FindBy(css = ".sidebar-menu > li:nth-child(3) li")
+    private List<SelenideElement> getServiceMenuOnLeftSectionItems;
+
+    public HomePage() {
+        page(this);
+    }
 
     @Step("Open Home Page")
     @Given("I am on Home Page")
     public void openHomePage() {
+        //HomePage homePage = page(HomePage.class);
         open(url);
     }
 
@@ -111,14 +131,14 @@ public class HomePage {
     @When("Different Elements page is open from Header menu")
     public DifferentElementsPage openDifferentElementsPage() {
         selectServiceMenuItem(MenuItems.DIFFERENT_ELEMENTS);
-        return new DifferentElementsPage();
+        return page(DifferentElementsPage.class);
     }
 
     @Step("Open User Table page")
     @When("I open User Table page through the header menu Service -> User Table")
     public UserTablePage openUserTablePage() {
         selectServiceMenuItem(MenuItems.USER_TABLE);
-        return new UserTablePage();
+        return page(UserTablePage.class);
     }
 
     public void checkServiceMenuItems() {

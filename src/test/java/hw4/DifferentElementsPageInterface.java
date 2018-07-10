@@ -35,21 +35,21 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
         homePage.login(PITER_CHAILOVSKII);
 
         // 4 - Assert User name in the left-top side of screen that user is logged in
-        homePage.checkSingedInUsername(PITER_CHAILOVSKII);
+        homePage.checkUsername(PITER_CHAILOVSKII);
 
         // 5 - Check interface on Home page, it contains all needed elements
-        homePage.checkImagesDisplayed();
+        homePage.checkImages();
         homePage.checkTextItems();
-        homePage.checkLongHeaderText();
-        homePage.checkShortHeaderText();
+        homePage.checkLongHeader();
+        homePage.checkShortHeader();
 
         // 6 - Click on "Service" subcategory in the header and check that dropdown contains options
-        homePage.expandServiceMenuDropdown();
-        homePage.checkServiceMenuItems();
+        homePage.openServiceMenu();
+        homePage.checkServiceMenu();
 
         // 7 - Click on "Service" subcategory in the left section and check that dropdown contains options
-        homePage.expandServiceMenuDropdownLeftSection();
-        homePage.checkServiceMenuItemsOnLeftSection();
+        homePage.openServiceMenuLeft();
+        homePage.checkServiceMenuLeft();
 
         // 8 - Open through the header menu Service -> Different Elements page
         differentElementsPage = homePage.openDifferentElementsPage();
@@ -57,7 +57,7 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
 
         // 9 - Check interface on Different Elements page, it contains all needed elements
         differentElementsPage.checkCheckboxes();
-        differentElementsPage.checkRadioButtons();
+        differentElementsPage.checkRadios();
         differentElementsPage.checkDropdown();
         differentElementsPage.checkButtons();
 
@@ -82,7 +82,7 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
         differentElementsPage.checkLogs(Metals.Selen);
 
         // 16 - Select in dropdown
-        differentElementsPage.selectDropdown(Colors.Yellow);
+        differentElementsPage.selectDropdownValue(Colors.Yellow);
 
         // 17 - Assert that for dropdown there is a log row and value is corresponded to the selected value
         differentElementsPage.checkLogs(Colors.Yellow);

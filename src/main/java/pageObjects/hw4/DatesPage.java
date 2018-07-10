@@ -46,7 +46,6 @@ public class DatesPage {
         } else {
             sliderValues.get(1).click();
         }
-
     }
 
     public void setRightSlider(int value) {
@@ -65,8 +64,12 @@ public class DatesPage {
 
     }
 
-    public void checkLogs(FromTo slider, int value) {
-        assertTrue(logs.getText().contains(" Range 2(" + slider + "):" + value + " link clicked"));
+    public void checkLogs(FromTo fromTo, int value) {
+        if (value != 100) {
+            assertTrue(logs.getText().contains(" Range 2(" + fromTo.toString() + "):" + value + " link clicked"));
+        } else {
+            assertTrue(logs.getText().contains(" Range 2(" + FromTo.To.toString() + "):" + value + " link clicked"));
+        }
     }
 
 }

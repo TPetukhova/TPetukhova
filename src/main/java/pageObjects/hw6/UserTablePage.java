@@ -9,40 +9,43 @@ import enums.hw6.UserType;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class UserTablePage {
 
-    // user enums not strings where possible
-
-    // make 1 method from 2 login methods - with enums
-
     private final String title = "User Table";
     private final String url = "https://epam.github.io/JDI/user-table.html";
 
-    private SelenideElement userTable = $("#user-table");
+    @FindBy(css = "#user-table")
+    private SelenideElement userTable;
 
-    private SelenideElement leftSection = $(".info-panel-header");
+    @FindBy(css = ".info-panel-header")
+    private SelenideElement leftSection;
 
-    private SelenideElement logs = $(".logs");
+    @FindBy(css = ".logs")
+    private SelenideElement logs;
 
-    private SelenideElement pagination = $(".uui-pagination");
+    @FindBy(css = ".uui-pagination")
+    private SelenideElement pagination;
 
-    private List<SelenideElement> userTableHeaders = $$("#user-table th");
+    @FindBy(css = "#user-table th")
+    private List<SelenideElement> userTableHeaders;
 
-    private List<SelenideElement> userTableRaws = $$("#user-table tbody tr");
+    @FindBy(css = "#user-table tbody tr")
+    private List<SelenideElement> userTableRaws;
 
-    private List<SelenideElement> typeDropdownValues = $$("#user-table tbody tr:nth-child(2) option");
+    @FindBy(css = "#user-table tbody tr:nth-child(2) option")
+    private List<SelenideElement> typeDropdownValues;
 
     private By userNameSelectorRaw = By.cssSelector("td:first-child");
 
@@ -57,6 +60,10 @@ public class UserTablePage {
     private By vipInputSelectorRaw = By.cssSelector("input");
 
     private By dropdownSelectorRaw = By.cssSelector("select");
+
+    public UserTablePage() {
+        page(this);
+    }
 
     @Step("Check User Table open")
     @Then("I am on User Table page")
