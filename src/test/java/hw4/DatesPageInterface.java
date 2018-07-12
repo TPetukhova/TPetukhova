@@ -18,6 +18,7 @@ public class DatesPageInterface extends SelenideTestBase {
     @BeforeClass
     public void beforeClass() {
         homePage = page(HomePage.class);
+        datesPage = page(DatesPage.class);
     }
 
     @Test
@@ -35,7 +36,7 @@ public class DatesPageInterface extends SelenideTestBase {
         homePage.checkUsername(Users.PITER_CHAILOVSKII);
 
         // 5 - Open through the header menu Service -> Dates Page
-        datesPage = homePage.openDatesPage();
+        homePage.openDatesPage();
         datesPage.checkPageTitle();
 
         // 6 - Using drag-and-drop set Range Sliders from 0 to 100

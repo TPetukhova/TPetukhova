@@ -71,17 +71,22 @@ public class DifferentElementsPage {
     @Step("Check Different Elements page layout")
     @Then("Different Elements page contains correct elements")
     public void checkPageInterface() {
-        checkCheckboxes();
-        checkRadioButtons();
-        checkDropdown();
-        checkButtons();
+        assertEquals(checkboxes.stream().map(SelenideElement::getText).collect(Collectors.toList()),
+                Stream.of(Elements.values()).map(Elements::toString).collect(Collectors.toList()));
+        assertEquals(radioButtons.stream().map(SelenideElement::getText).collect(Collectors.toList()),
+                Stream.of(Metals.values()).map(Metals::toString).collect(Collectors.toList()));
+        dropdown.shouldBe(Condition.visible);
+        assertEquals(dropdownOptions.stream().map(WebElement::getText).collect(Collectors.toList()),
+                Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
+        defaultButton.shouldBe(Condition.visible);
+        secondButton.shouldBe(Condition.visible);
     }
 
     @Step("Check Different Elements Side Sections")
     @Then("Different Elements page contains side sections")
     public void checkSideSections() {
-        checkLeftSection();
-        checkRightSection();
+        leftSection.shouldBe(Condition.visible);
+        rightSection.shouldBe(Condition.visible);
     }
 
     @Step("Select checkbox")
@@ -129,35 +134,6 @@ public class DifferentElementsPage {
     @Then("Logs contain entry: (.+) is chosen")
     public void checkLogsDropdown(Colors color) {
         checkLogs(color);
-    }
-
-    public void checkCheckboxes() {
-        assertEquals(checkboxes.stream().map(SelenideElement::getText).collect(Collectors.toList()),
-                Stream.of(Elements.values()).map(Elements::toString).collect(Collectors.toList()));
-    }
-
-    public void checkRadioButtons() {
-        assertEquals(radioButtons.stream().map(SelenideElement::getText).collect(Collectors.toList()),
-                Stream.of(Metals.values()).map(Metals::toString).collect(Collectors.toList()));
-    }
-
-    public void checkDropdown() {
-        dropdown.shouldBe(Condition.visible);
-        assertEquals(dropdownOptions.stream().map(WebElement::getText).collect(Collectors.toList()),
-                Stream.of(Colors.values()).map(Colors::toString).collect(Collectors.toList()));
-    }
-
-    public void checkButtons() {
-        defaultButton.shouldBe(Condition.visible);
-        secondButton.shouldBe(Condition.visible);
-    }
-
-    public void checkLeftSection() {
-        leftSection.shouldBe(Condition.visible);
-    }
-
-    public void checkRightSection() {
-        rightSection.shouldBe(Condition.visible);
     }
 
     public void setCheckboxState(Elements element, boolean state) {

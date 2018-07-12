@@ -20,6 +20,7 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
     @BeforeClass
     public void beforeClass() {
         homePage = page(HomePage.class);
+        differentElementsPage = page(DifferentElementsPage.class);
     }
 
     @Test
@@ -52,7 +53,7 @@ public class DifferentElementsPageInterface extends SelenideTestBase {
         homePage.checkServiceMenuLeft();
 
         // 8 - Open through the header menu Service -> Different Elements page
-        differentElementsPage = homePage.openDifferentElementsPage();
+        homePage.openDifferentElementsPage();
         differentElementsPage.checkPageTitle();
 
         // 9 - Check interface on Different Elements page, it contains all needed elements

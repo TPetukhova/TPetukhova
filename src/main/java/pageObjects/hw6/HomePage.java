@@ -141,7 +141,7 @@ public class HomePage {
         return page(UserTablePage.class);
     }
 
-    public void checkServiceMenuItems() {
+    private void checkServiceMenuItems() {
         serviceDropdown.click();
         assertEquals(serviceMenuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));

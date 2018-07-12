@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
@@ -115,7 +114,6 @@ public class HomePage {
     public void checkServiceMenu() {
         assertEquals(serviceMenuItems.stream().map(WebElement::getText).collect(Collectors.toList()),
                 Stream.of(MenuItems.values()).map(item -> item.toString().toUpperCase()).collect(Collectors.toList()));
-
     }
 
     public void openServiceMenuLeft() {
@@ -134,14 +132,12 @@ public class HomePage {
 
     }
 
-    public DifferentElementsPage openDifferentElementsPage() {
+    public void openDifferentElementsPage() {
         selectServiceMenuItem(MenuItems.DIFFERENT_ELEMENTS);
-        return page(DifferentElementsPage.class);
     }
 
-    public DatesPage openDatesPage() {
+    public void openDatesPage() {
         selectServiceMenuItem(MenuItems.DATES);
-        return page(DatesPage.class);
     }
 
 }
