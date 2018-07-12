@@ -22,6 +22,8 @@ import static org.testng.Assert.assertTrue;
 
 public class DifferentElementsPage {
 
+    //just test
+
     private final String title = "Different Element";
     private final String url = "https://epam.github.io/JDI/different-elements.html";
 
