@@ -24,6 +24,8 @@ public class DifferentElementsPage {
 
     //just test
 
+    // another test
+
     private final String title = "Different Element";
     private final String url = "https://epam.github.io/JDI/different-elements.html";
 
